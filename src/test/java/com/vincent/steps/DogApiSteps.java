@@ -9,6 +9,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Get;
 
+import static com.vincent.steps.ActorConfig.setupActor;
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -18,8 +19,7 @@ public class DogApiSteps {
     private  Actor ben;
     @Given("a user named {string}")
     public void a_user_named(String actorName) {
-        ben = Actor.named(actorName)
-                .whoCan(CallAnApi.at(BASE_URL));
+        ben = setupActor(actorName).whoCan(CallAnApi.at(BASE_URL));
     }
 
     @When("Ben searches for random breeds")
