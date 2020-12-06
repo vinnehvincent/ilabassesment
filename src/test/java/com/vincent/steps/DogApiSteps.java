@@ -50,6 +50,21 @@ public class DogApiSteps {
                        response -> response.body("message."+breed,is(notNullValue())))
        );
     }
+    @When("he searches for {string} sub-breeds")
+    public void he_searches_for_sub_breeds(String string) {
+       ben.attemptsTo(
+               Get.resource("breed/bulldog/images")
+       );
+    }
+
+    @Then("he should get a list of images")
+    public void he_should_get_a_list_of_images() {
+        ben.should(
+                seeThatResponse("The list contains pictures of breeds",
+                        response -> response.body("message",is(notNullValue())))
+        );
+    }
+
 
 
 

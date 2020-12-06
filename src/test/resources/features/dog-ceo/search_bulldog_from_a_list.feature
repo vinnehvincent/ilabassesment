@@ -13,3 +13,8 @@ Feature: Dog API
     When Ben searches for the list of all breeds
     Then "bulldog" should be in the list
 
+  Scenario: All sub-breeds for bulldogs and their respective images
+    Given a user named "Ben"
+    When he searches for "bulldog" sub-breeds
+    Then he should get a "success" status
+    And he should get a list of images
