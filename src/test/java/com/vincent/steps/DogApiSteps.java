@@ -10,7 +10,7 @@ import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Get;
 
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.*;
 
 public class DogApiSteps {
     private static final String BASE_URL = "https://dog.ceo/api/";
@@ -32,10 +32,25 @@ public class DogApiSteps {
     @Then("he should get a {string} status")
     public void he_should_get_a_message(String status) {
         ben.should(
-                seeThatResponse("A \"successful\" message is returned",
+                seeThatResponse("A \"success\" status is returned",
                         response -> response.body("status",equalTo(status)))
         );
     }
+    @When("Ben searches for the list of all breeds")
+    public void ben_searches_for_the_list_of_all_breeds() {
+       ben.attemptsTo(
+               Get.resource("breeds/list/all")
+       );
+    }
+
+    @Then("{string} should be in the list")
+    public void should_be_in_the_list(String breed) {
+       ben.should(
+               seeThatResponse("\""+breed+"\""+" should be in the list",
+                       response -> response.body("message."+breed,is(notNullValue())))
+       );
+    }
+
 
 
 }
