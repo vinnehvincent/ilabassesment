@@ -71,7 +71,7 @@ public class PetStoreAPIStepDefinition {
                         response ->{response.body("id", notNullValue());})
         );
         petId = SerenityRest.lastResponse().jsonPath().get("id");
-        System.out.printf("pet id: %s", petId);
+
     }
 
     @Then("the status should be {string}")
@@ -83,8 +83,9 @@ public class PetStoreAPIStepDefinition {
     }
     @When("she retrieves pet")
     public void she_retrieves_pet() {
+        petId = SerenityRest.lastResponse().jsonPath().get("id");
         pearl.attemptsTo(
-                Get.resource("/pet/"+petId)
+                Get.resource("/pet/"+ petId)
         );
     }
 
