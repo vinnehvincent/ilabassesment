@@ -1,25 +1,26 @@
 package com.vincent.steps;
 
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
-import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Get;
 
-import static com.vincent.steps.ActorConfig.setupActor;
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
 import static org.hamcrest.CoreMatchers.*;
 
 public class DogApiSteps {
     private static final String BASE_URL = "https://dog.ceo/api/";
-    private Response response;
     private  Actor ben;
     @Given("a user named {string}")
     public void a_user_named(String actorName) {
-        ben = setupActor(actorName).whoCan(CallAnApi.at(BASE_URL));
+        ben = Actor.named("Ben")
+                    .whoCan(CallAnApi.at(BASE_URL));
     }
 
     @When("Ben searches for random breeds")
