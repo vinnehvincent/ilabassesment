@@ -17,7 +17,7 @@ import static org.hamcrest.CoreMatchers.*;
 public class DogApiSteps {
     private static final String BASE_URL = "https://dog.ceo/api/";
     private  Actor ben;
-    @Given("a user named {string}")
+    @Given("a user named {string} using Dog API")
     public void a_user_named(String actorName) {
         ben = Actor.named("Ben")
                     .whoCan(CallAnApi.at(BASE_URL));

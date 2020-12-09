@@ -14,3 +14,8 @@ Feature: Search Pets
     When she adds new pet
     Then the pet should be added
     And the status should be "available"
+
+  Scenario: Retrieve pet using the ID
+    Given an actor named "Pearl" using PetStore API
+    When  she retrieves pet
+    Then pet should be returned

@@ -3,10 +3,11 @@ package com.vincent.steps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
+import net.serenitybdd.screenplay.rest.interactions.Get;
 import net.serenitybdd.screenplay.rest.interactions.Post;
-import org.hamcrest.CoreMatchers;
 
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -15,6 +16,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 public class PetStoreAPIStepDefinition {
     private static final String BASE_URL = "https://petstore.swagger.io/v2";
     Actor pearl;
+    Long petId;
     @Given("an actor named {string} using PetStore API")
     public void an_actor_named_using_PetStore_API(String name) {
         pearl = Actor.named(name)
@@ -68,6 +70,8 @@ public class PetStoreAPIStepDefinition {
                 seeThatResponse("Response body had as an auto-generated id",
                         response ->{response.body("id", notNullValue());})
         );
+        petId = SerenityRest.lastResponse().jsonPath().get("id");
+        System.out.printf("pet id: %s", petId);
     }
 
     @Then("the status should be {string}")
@@ -77,5 +81,22 @@ public class PetStoreAPIStepDefinition {
                         response -> {response.body("status",equalTo("available"));})
         );
     }
+    @When("she retrieves pet")
+    public void she_retrieves_pet() {
+        pearl.attemptsTo(
+                Get.resource("/pet/"+petId)
+        );
+    }
+
+    @Then("pet should be returned")
+    public void pet_should_be_returned() {
+        pearl.should(
+                seeThatResponse("The pet is returned",
+                        response -> {response.statusCode(200);
+                                     response.body("id",equalTo(petId));
+                })
+        );
+    }
+
 
 }
