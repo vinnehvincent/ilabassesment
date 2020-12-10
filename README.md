@@ -5,6 +5,7 @@ _This project was done by Vincent Tshabalala as a part of the assessment given o
     
     * Java 8+  
     * Maven 3.6.3  
+    * A webdriver e.g chrome, gecko, etc.
 ###Building and running the project
 
     mvn clean install -Dwebdriver.driver= <webdriver>   
