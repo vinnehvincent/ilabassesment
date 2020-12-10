@@ -19,6 +19,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -53,7 +54,9 @@ public class JobApplicationSteps {
 
     @NotNull
     private String getPhoneNumber() {
-        return "083 975 1187";
+        Random random = new Random();
+        String phoneNumberFormat = "083 %d %d";
+        return String.format(phoneNumberFormat,random.nextInt(999),random.nextInt(9999));
     }
 
     @When("submits the form")
