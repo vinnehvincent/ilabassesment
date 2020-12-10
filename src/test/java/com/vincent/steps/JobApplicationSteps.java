@@ -17,6 +17,7 @@ import net.thucydides.core.annotations.Managed;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -54,9 +55,12 @@ public class JobApplicationSteps {
 
     @NotNull
     private String getPhoneNumber() {
-        Random random = new Random();
-        String phoneNumberFormat = "083 %d %d";
-        return String.format(phoneNumberFormat,random.nextInt(999),random.nextInt(9999));
+        final Random random = new Random();
+        final DecimalFormat threeDigits = new DecimalFormat("000");
+        final DecimalFormat fourDigits = new DecimalFormat("0000");
+
+        final String PHONE_NUMBER_FORMAT = "083 %s %s";
+        return String.format(PHONE_NUMBER_FORMAT,threeDigits.format(random.nextInt(999)),fourDigits.format(random.nextInt(9999)));
     }
 
     @When("submits the form")
