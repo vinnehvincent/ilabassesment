@@ -1,7 +1,7 @@
 #iLab Assessment
 _This project was done by Vincent Tshabalala as a part of the assessment given out by iLab_
 ###Prerequisites
- The following are need to successfully run the project:   
+ The following are needed to successfully run the project:   
     
     * Java 8+  
     * Maven 3.6.3  
